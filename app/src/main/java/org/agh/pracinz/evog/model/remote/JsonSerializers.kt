@@ -13,6 +13,7 @@ import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import java.io.IOException
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 //class LocalDateSerializer : JsonSerializer<LocalDate>(){
@@ -45,6 +46,27 @@ class LocalDateAdapter : TypeAdapter<LocalDate>() {
             return null
         } else {
             return LocalDate.parse(jsonReader.nextString())
+        }
+    }
+}
+
+class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
+    @Throws(IOException::class)
+    override fun write(jsonWriter: JsonWriter, localDate: LocalDateTime?) {
+        if (localDate == null) {
+            jsonWriter.nullValue()
+        } else {
+            jsonWriter.value(localDate.toString())
+        }
+    }
+
+    @Throws(IOException::class)
+    override fun read(jsonReader: JsonReader): LocalDateTime? {
+        if (jsonReader.peek() === JsonToken.NULL) {
+            jsonReader.nextNull()
+            return null
+        } else {
+            return LocalDateTime.parse(jsonReader.nextString())
         }
     }
 }

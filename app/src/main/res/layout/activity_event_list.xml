@@ -5,4 +5,50 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.events.EventListActivity"/>
+        tools:context=".view.events.EventListActivity">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true" app:srcCompat="@android:drawable/ic_input_add"
+            android:id="@+id/addEventButton"
+            android:layout_marginBottom="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/eventLayout"
+            android:layout_marginRight="25dp"
+            app:layout_constraintRight_toRightOf="@+id/eventLayout"
+    />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/eventLayout"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent">
+        <Button
+                android:text="Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/button6"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="395dp"
+                android:layout_height="wrap_content" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="8dp">
+            <Button
+                    android:text="Current"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/currentEventsButton"
+                    android:layout_weight="1"/>
+            <Button
+                    android:text="Present"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/presentEventsButton"
+                    android:layout_weight="1"/>
+            <Button
+                    android:text="Past"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/pastEventsButton" android:layout_weight="1"/>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/eventsRV"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,22 +1,16 @@
 package org.agh.pracinz.evog.view.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import dagger.internal.DaggerCollections
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
-import org.agh.pracinz.evog.di.module.ViewModelFactory
 import org.agh.pracinz.evog.model.data.UserCredentials
+import org.agh.pracinz.evog.view.events.EventListActivity
 import org.agh.pracinz.evog.view.login.signin.SignInActivity
 import org.agh.pracinz.evog.viewmodel.login.LogInViewModel
-import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -28,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         logInViewModel = ViewModels.loginViewModel
         signInButton.setOnClickListener(this::onSignInClick)
+        logInButton.setOnClickListener(this::onLogInClick)
     }
 
     fun onSignInClick(view: View) {
@@ -48,6 +43,9 @@ class LoginActivity : AppCompatActivity() {
     fun onLogInClick(view: View) {
         val login = loginInput.text.toString()
         val password = passwordInput.text.toString()
-        logInViewModel.logIn(login, password)
+//        logInViewModel.logIn(login, password)
+        goToEventList()
     }
+
+    private inline fun goToEventList() = startActivity(Intent(this, EventListActivity::class.java))
 }
