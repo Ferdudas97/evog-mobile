@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Localization
+import org.agh.pracinz.evog.view.common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
 import org.agh.pracinz.evog.viewmodel.login.CreateEventViewModel
 
 
@@ -30,7 +31,6 @@ class LocationPickerFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarke
     GoogleMap.OnMapLongClickListener {
     private lateinit var mMap: GoogleMap
     private var mLocationPermissionGranted = false
-    private val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
     lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var viewModel: CreateEventViewModel
     private val markers = mutableListOf<Marker>()

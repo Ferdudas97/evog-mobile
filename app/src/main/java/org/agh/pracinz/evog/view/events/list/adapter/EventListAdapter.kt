@@ -1,4 +1,4 @@
-package org.agh.pracinz.evog.view.events.adapter
+package org.agh.pracinz.evog.view.events.list.adapter
 
 import android.view.View
 import android.view.ViewGroup

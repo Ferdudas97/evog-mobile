@@ -40,7 +40,7 @@
                 android:value="@integer/google_play_services_version"/>
         <activity android:name=".view.events.CreateEventActivity">
         </activity>
-        <activity android:name=".view.events.EventListActivity">
+        <activity android:name=".view.events.list.EventListActivity">
         </activity>
         <activity android:name=".view.login.signin.SignInActivity">
         </activity>

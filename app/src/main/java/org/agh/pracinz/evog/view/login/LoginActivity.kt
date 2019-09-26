@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.UserCredentials
-import org.agh.pracinz.evog.view.events.EventListActivity
+import org.agh.pracinz.evog.view.events.list.EventListActivity
 import org.agh.pracinz.evog.view.login.signin.SignInActivity
 import org.agh.pracinz.evog.viewmodel.login.LogInViewModel
 
