@@ -65,9 +65,9 @@ data class EventFilter(
     val maxAllowedAge: Int? = null,
     val startTime: LocalDateTime? = null,
     val endTime: LocalDateTime? = null,
-    val localizationRadius: Double,
+    val localizationRadius: Double = 10.0,
     val maxNumberOfPeople: Int? = null,
     val minNumberOfPeople: Int? = null,
     val category: Category? = null,
-    val localization: Localization
+    val localization: Localization = Localization(0.0,0.0)
 )

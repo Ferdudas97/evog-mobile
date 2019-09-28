@@ -1,5 +1,6 @@
 package org.agh.pracinz.evog.view
 
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ fun RadioGroup.onSelectedChange(f: (String) -> Unit) = this.setOnCheckedChangeLi
 
 }
 
+fun Editable.toIntOrNull() = this.toString().parseToInt()
 fun LocalDateTime.toPrintable() = "$year/${monthValue + 1}/$dayOfMonth $hour:$minute"
 
 

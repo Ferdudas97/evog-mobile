@@ -14,6 +14,7 @@ import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Category
 import org.agh.pracinz.evog.model.data.Event
+import org.agh.pracinz.evog.view.common.MyDatePicker
 import org.agh.pracinz.evog.view.common.RxActivity
 import org.agh.pracinz.evog.view.onSelectedChange
 import org.agh.pracinz.evog.view.onTextChange
@@ -30,8 +31,6 @@ private const val TAG = "CreateEventActivity"
 class CreateEventActivity : RxActivity() {
 
     private lateinit var viewModel: CreateEventViewModel
-    private val now = LocalDateTime.now()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,46 +59,6 @@ class CreateEventActivity : RxActivity() {
         Toast.makeText(this, "Event can`t be created", Toast.LENGTH_LONG).show()
     }
 
-    private fun onDateSet(property0: KMutableProperty0<LocalDateTime>) =
-        { datePicker: DatePicker?, year: Int, montOfYeay: Int, dayOfMonth: Int ->
-            onDateSet(datePicker, year, montOfYeay, dayOfMonth, property0)
-        }
-
-    private fun onTimeSet(property0: KMutableProperty0<LocalDateTime>) =
-        { view: TimePicker?, hourOfDay: Int, minute: Int ->
-            onTimeSet(view, hourOfDay, minute, property0)
-        }
-
-    private fun onDateSet(
-        datePicker: DatePicker?, year: Int, montOfYeay: Int, dayOfMonth: Int,
-        property0: KMutableProperty0<LocalDateTime>
-    ) {
-        property0.set(
-            LocalDateTime.of(
-                LocalDate.of(year, montOfYeay, dayOfMonth),
-                property0.get().toLocalTime()
-            )
-        )
-        TimePickerDialog(this, onTimeSet(property0), now.hour, now.minute, true).show()
-
-    }
-
-    private fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int, property0: KMutableProperty0<LocalDateTime>) {
-        property0.set(LocalDateTime.of(property0.get().toLocalDate(), LocalTime.of(hourOfDay, minute)))
-        updateUi()
-    }
-
-    private fun createPicker(property0: KMutableProperty0<LocalDateTime>) {
-        DatePickerDialog(
-            this,
-            onDateSet(property0),
-            now.year,
-            now.monthValue,
-            now.dayOfMonth
-        )
-            .show()
-    }
-
     private fun setListeners() {
         createEventButton.setOnClickListener(this::onCreateButtonClick)
         maxPeopleInput.onTextNumberChange { viewModel.state.maxNumberOfPeople = it }
@@ -109,11 +68,14 @@ class CreateEventActivity : RxActivity() {
         minAgeInput.onTextNumberChange { viewModel.state.minAllowedAge = it }
         eventNameInput.onTextChange { viewModel.state.name = it }
         startTimeInput.setOnClickListener {
-            createPicker(viewModel.state::startDate)
+            MyDatePicker(this).createPicker(viewModel.state::startDate) {
+                startTimeInput.text = "Start time: ${viewModel.state.startDate.toPrintable()}"
+            }
         }
         endTimeInput.setOnClickListener {
-            createPicker(viewModel.state::endTime)
-
+            MyDatePicker(this).createPicker(viewModel.state::endTime) {
+                endTimeInput.text = "End time: ${viewModel.state.endTime.toPrintable()}"
+            }
         }
         categoryRG.onSelectedChange { viewModel.state.category = Category.valueOf(it) }
         eventDescriptionInput.onTextChange { viewModel.state.description = it }

@@ -40,6 +40,7 @@ class EventListActivity : AppCompatActivity() {
             adapter = EventListAdapter(events)
             layoutManager = linearLayoutManager
         }
+        searchEventButton.setOnClickListener(this::onSearchButtonClicked)
     }
 
 
@@ -50,11 +51,6 @@ class EventListActivity : AppCompatActivity() {
 
 
     private fun getLocationPermission() {
-        /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
         if (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -99,7 +95,10 @@ class EventListActivity : AppCompatActivity() {
     }
 
     private fun onSearchButtonClicked(view: View) {
-
+        EventFilterDialog(viewModel,this).apply {
+            create()
+            show()
+        }
     }
 
 
