@@ -14,6 +14,7 @@ import com.google.gson.stream.JsonWriter
 import java.io.IOException
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 //class LocalDateSerializer : JsonSerializer<LocalDate>(){
@@ -66,7 +67,8 @@ class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
             jsonReader.nextNull()
             return null
         } else {
-            return LocalDateTime.parse(jsonReader.nextString())
+            val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            return LocalDateTime.parse(jsonReader.nextString(),formater)
         }
     }
 }

@@ -61,24 +61,26 @@ class CreateEventActivity : RxActivity() {
 
     private fun setListeners() {
         createEventButton.setOnClickListener(this::onCreateButtonClick)
-        maxPeopleInput.onTextNumberChange { viewModel.state.maxNumberOfPeople = it }
-        minPeopleInput.onTextNumberChange { viewModel.state.minNumberOfPeople = it }
+        viewModel.state.apply {
+            maxPeopleInput.onTextNumberChange { maxNumberOfPeople = it }
+            minPeopleInput.onTextNumberChange { minNumberOfPeople = it }
 
-        maxAgeInput.onTextNumberChange { viewModel.state.maxAllowedAge = it }
-        minAgeInput.onTextNumberChange { viewModel.state.minAllowedAge = it }
-        eventNameInput.onTextChange { viewModel.state.name = it }
-        startTimeInput.setOnClickListener {
-            MyDatePicker(this).createPicker(viewModel.state::startDate) {
-                startTimeInput.text = "Start time: ${viewModel.state.startDate.toPrintable()}"
+            maxAgeInput.onTextNumberChange { maxAllowedAge = it }
+            minAgeInput.onTextNumberChange { minAllowedAge = it }
+            eventNameInput.onTextChange { name = it }
+            startTimeInput.setOnClickListener {
+                MyDatePicker(this@CreateEventActivity).createPicker(this::startDate) {
+                    startTimeInput.text = "Start time: ${startDate.toPrintable()}"
+                }
             }
-        }
-        endTimeInput.setOnClickListener {
-            MyDatePicker(this).createPicker(viewModel.state::endTime) {
-                endTimeInput.text = "End time: ${viewModel.state.endTime.toPrintable()}"
+            endTimeInput.setOnClickListener {
+                MyDatePicker(this@CreateEventActivity).createPicker(this::endTime) {
+                    endTimeInput.text = "End time: ${endTime.toPrintable()}"
+                }
             }
+            categoryRG.onSelectedChange { category = Category.valueOf(it) }
+            eventDescriptionInput.onTextChange { description = it }
         }
-        categoryRG.onSelectedChange { viewModel.state.category = Category.valueOf(it) }
-        eventDescriptionInput.onTextChange { viewModel.state.description = it }
     }
 
     private fun updateUi() {

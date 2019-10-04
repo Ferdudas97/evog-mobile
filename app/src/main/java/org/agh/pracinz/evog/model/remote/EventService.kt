@@ -7,6 +7,7 @@ import org.agh.pracinz.evog.model.data.EventSnapshot
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface EventService {
@@ -15,6 +16,9 @@ interface EventService {
     fun create(@Body event: Event): Single<Event>
 
 
-    @GET(value = "events")
+    @POST(value = "events/filter")
     fun getFilteredEvents(@Body eventFilter: EventFilter): Single<List<EventSnapshot>>
+
+    @GET("events/{id}")
+    fun getById(@Path(value = "id") id : String) : Single<Event>
 }

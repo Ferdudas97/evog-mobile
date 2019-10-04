@@ -19,4 +19,8 @@ class EventRepository(private val eventService: EventService) {
         return eventService.getFilteredEvents(eventFilter)
     }
 
+    fun getById(id:String): Single<Event> {
+        return eventService.getById(id)
+    }
+
 }

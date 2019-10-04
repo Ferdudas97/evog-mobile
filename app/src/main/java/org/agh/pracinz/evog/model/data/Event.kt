@@ -49,6 +49,7 @@ data class Localization(
 data class EventList(val events: List<EventSnapshot>)
 
 data class EventSnapshot(
+    val id: String,
     val name: String,
     val localization: Localization,
     val minNumberOfPeople: Int?,
@@ -65,7 +66,7 @@ data class EventFilter(
     val maxAllowedAge: Int? = null,
     val startTime: LocalDateTime? = null,
     val endTime: LocalDateTime? = null,
-    val localizationRadius: Double = 10.0,
+    val localizationRadius: Int = 10,
     val maxNumberOfPeople: Int? = null,
     val minNumberOfPeople: Int? = null,
     val category: Category? = null,
