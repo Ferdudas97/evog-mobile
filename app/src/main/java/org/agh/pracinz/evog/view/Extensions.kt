@@ -1,5 +1,6 @@
 package org.agh.pracinz.evog.view
 
+import android.app.Activity
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.widget.doAfterTextChanged
+import kotlinx.android.synthetic.main.evog_input.*
 import java.time.LocalDateTime
 
 
@@ -32,7 +35,9 @@ fun RadioGroup.onSelectedChange(f: (String) -> Unit) = this.setOnCheckedChangeLi
 fun Editable.toIntOrNull() = this.toString().parseToInt()
 fun LocalDateTime.toPrintable() = "$year/${monthValue + 1}/$dayOfMonth $hour:$minute"
 
-
+fun Activity.createToast(msg: String) {
+    Toast.makeText(this,msg,Toast.LENGTH_SHORT)
+}
 private fun String.parseToInt() = try {
     this.toInt()
 } catch (_: Exception) {

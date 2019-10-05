@@ -3,6 +3,7 @@ package org.agh.pracinz.evog.view.events.list.details
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.util.toRange
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CircleOptions
@@ -13,10 +14,12 @@ import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Event
 import org.agh.pracinz.evog.view.common.EVENT_ID
+import org.agh.pracinz.evog.view.common.RxActivity
+import org.agh.pracinz.evog.view.createToast
 import org.agh.pracinz.evog.view.toPrintable
 import kotlin.random.Random
 
-class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
+class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
 
     private val viewModel = ViewModels.eventDetailsViewModel
     private lateinit var mMap: GoogleMap
@@ -39,10 +42,21 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             enddTimeDetailsTV.text = "Ends at ${endTime.toPrintable()}"
             setLocation(event)
         }
+        assignToEventButton.setOnClickListener(this::assign)
+    }
+
+    private fun assign(view: View) {
+        val id = this.intent.extras!![EVENT_ID] as String
+        this.disposables.add(viewModel.assign(id)
+            .doOnError { this.createToast("Cannot assing to event") }
+            .doOnSuccess { this.createToast("Request was send") }
+            .subscribe()
+        )
     }
 
     private fun setLocation(event: Event) {
-        val latLng = event.details.localization.run { LatLng(latitude.fuzzify(), longitude.fuzzify()) }
+        val latLng =
+            event.details.localization.run { LatLng(latitude.fuzzify(), longitude.fuzzify()) }
         CircleOptions().apply {
             center(latLng)
             radius(1000.toDouble())
@@ -50,7 +64,7 @@ class EventDetailsActivity : AppCompatActivity(), OnMapReadyCallback {
             fillColor(0x220000FF)
             strokeWidth(2f)
             mMap.addCircle(this)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,"10".toFloat()))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, "10".toFloat()))
         }
     }
 

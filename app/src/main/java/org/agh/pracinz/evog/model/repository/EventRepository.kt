@@ -14,6 +14,9 @@ class EventRepository(private val eventService: EventService) {
         return eventService.create(event)
     }
 
+    fun assign(id: String) : Single<Unit> {
+        return eventService.assign(id)
+    }
 
     fun getFiltered(eventFilter: EventFilter): Single<List<EventSnapshot>> {
         return eventService.getFilteredEvents(eventFilter)

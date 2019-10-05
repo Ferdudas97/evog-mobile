@@ -12,4 +12,8 @@ class EventDetailsViewModel(private val eventRepository: EventRepository) : View
     fun getEvent(id: String) : Single<Event> {
         return eventRepository.getById(id)
     }
+
+    fun assign(id: String) : Single<Unit> {
+        return eventRepository.assign(id)
+    }
 }

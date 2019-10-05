@@ -20,5 +20,8 @@ interface EventService {
     fun getFilteredEvents(@Body eventFilter: EventFilter): Single<List<EventSnapshot>>
 
     @GET("events/{id}")
-    fun getById(@Path(value = "id") id : String) : Single<Event>
+    fun getById(@Path(value = "id") id: String): Single<Event>
+
+    @POST("events/{id}")
+    fun assign(@Path(value = "id") id: String): Single<Unit>
 }
