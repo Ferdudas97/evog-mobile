@@ -7,7 +7,9 @@ class NotificationRepository(private val service: NotificationService) {
 
     fun reject(id: String) = service.reject(id)
 
-    fun accept(id: String) = service.reject(id)
+    fun accept(id: String) = service.accept(id)
+
+    fun delete(id: String) = service.deleee(id)
 
     fun getAll() = service.getAllUserNotifications()
 

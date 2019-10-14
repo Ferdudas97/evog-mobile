@@ -20,7 +20,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity"></activity>
+        <activity android:name=".view.main.MainActivity"></activity>
         <activity android:name=".view.events.list.details.EventDetailsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

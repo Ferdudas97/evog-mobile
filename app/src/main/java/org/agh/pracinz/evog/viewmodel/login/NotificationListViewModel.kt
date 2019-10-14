@@ -10,6 +10,8 @@ class NotificationListViewModel(private val repository: NotificationRepository) 
 
     fun accept(id: String) = repository.accept(id)
 
+    fun delete(id: String) = repository.delete(id)
+
     fun getAll() = repository.getAll()
 
 

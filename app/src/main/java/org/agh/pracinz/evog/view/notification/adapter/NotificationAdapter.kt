@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.notification_list_item.view.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.model.data.Notification
+import org.agh.pracinz.evog.model.data.State
 import org.agh.pracinz.evog.view.inflate
-import org.agh.pracinz.evog.viewmodel.login.NotificationListViewModel
 
 
 class NotificationAdapter(
@@ -43,6 +43,10 @@ class NotificationViewHolder(
             itemView.notificationContentTV.text = content
             itemView.rejectRequestButton.setOnClickListener {
                 listener.onRejectButtonClicked(notification.id, adapterPosition)
+            }
+            if( state != State.NOT_ACTION) {
+                itemView.acceptRequestButton.visibility = View.INVISIBLE
+                itemView.rejectRequestButton.visibility = View.INVISIBLE
             }
             itemView.acceptRequestButton.setOnClickListener {
                 listener.onAcceptButtonClicked(notification.id, adapterPosition)

@@ -1,14 +1,16 @@
 package org.agh.pracinz.evog.view.events.list.details
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.util.toRange
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_event_details.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
@@ -42,15 +44,22 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
             enddTimeDetailsTV.text = "Ends at ${endTime.toPrintable()}"
             setLocation(event)
         }
+        when (event.isAssigned) {
+            true -> assignToEventButton.visibility = View.INVISIBLE
+            else -> assignToEventButton.visibility = View.VISIBLE
+        }
+
         assignToEventButton.setOnClickListener(this::assign)
     }
 
     private fun assign(view: View) {
         val id = this.intent.extras!![EVENT_ID] as String
         this.disposables.add(viewModel.assign(id)
-            .doOnError { this.createToast("Cannot assing to event") }
-            .doOnSuccess { this.createToast("Request was send") }
-            .subscribe()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy({ this.createToast("Cannot assing to event") }) {
+                this.createToast("Request was send")
+                finish()
+            }
         )
     }
 

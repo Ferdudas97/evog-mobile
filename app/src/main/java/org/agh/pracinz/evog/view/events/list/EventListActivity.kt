@@ -5,68 +5,75 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_event_list.*
+import kotlinx.android.synthetic.main.activity_event_list.view.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
-import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.EventSnapshot
 import org.agh.pracinz.evog.model.data.Localization
 import org.agh.pracinz.evog.view.common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-import org.agh.pracinz.evog.view.common.RxActivity
+import org.agh.pracinz.evog.view.common.RxFragment
 import org.agh.pracinz.evog.view.events.CreateEventActivity
 import org.agh.pracinz.evog.view.events.list.adapter.EventListAdapter
 
-class EventListActivity : RxActivity() {
+class EventListActivity : RxFragment() {
 
     private val viewModel = ViewModels.eventListViewModel
-    private var events = listOf<EventSnapshot>()
+    private var events = mutableListOf<EventSnapshot>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var mLocationPermissionGranted = false
+    private lateinit var eventAdapter: EventListAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_event_list)
-        addEventButton.setOnClickListener(this::onAddEventButtonClick)
-        linearLayoutManager = LinearLayoutManager(this)
-        getLocationPermission()
-        eventsRV.apply {
-            adapter = EventListAdapter(events)
-            layoutManager = linearLayoutManager
-        }
-        searchEventButton.setOnClickListener(this::onSearchButtonClicked)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_event_list, container, false)
+            .also {
+                it.addEventButton.setOnClickListener(this::onAddEventButtonClick)
+                linearLayoutManager = LinearLayoutManager(activity)
+                getLocationPermission()
+                this.eventAdapter = EventListAdapter(events)
+                it.eventsRV.apply {
+                    adapter = eventAdapter
+                    layoutManager = linearLayoutManager
+                }
+                it.searchEventButton.setOnClickListener(this::onSearchButtonClicked)
+
+            }
     }
 
     private fun setEvents(events: List<EventSnapshot>) {
-        eventsRV.apply {
-            adapter = EventListAdapter(events)
-            layoutManager = linearLayoutManager
-        }
+        this.events.clear()
+        this.events.addAll(events)
+        this.eventAdapter.notifyDataSetChanged()
     }
 
     private fun onError(e: Throwable) {
         Log.e("EventListActivity", e.message)
-        Toast.makeText(this, "Change filter ", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "Change filter ", Toast.LENGTH_SHORT).show()
     }
 
 
     private fun onAddEventButtonClick(view: View) {
-        val intent = Intent(this, CreateEventActivity::class.java)
+        val intent = Intent(activity, CreateEventActivity::class.java)
         startActivity(intent)
     }
 
 
     private fun getLocationPermission() {
         if (ContextCompat.checkSelfPermission(
-                this,
+                activity!!,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
@@ -83,7 +90,7 @@ class EventListActivity : RxActivity() {
     @SuppressLint("MissingPermission")
     private fun setLocalization() {
         if (mLocationPermissionGranted) {
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
             fusedLocationClient.lastLocation.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val location = task.result!!
@@ -121,7 +128,7 @@ class EventListActivity : RxActivity() {
     }
 
     private fun onSearchButtonClicked(view: View) {
-        EventFilterDialog(viewModel, this).apply {
+        EventFilterDialog(viewModel, activity!!).apply {
             create()
             show()
             setOnDismissListener {

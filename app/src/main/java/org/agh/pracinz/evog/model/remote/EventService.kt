@@ -22,6 +22,6 @@ interface EventService {
     @GET("events/{id}")
     fun getById(@Path(value = "id") id: String): Single<Event>
 
-    @POST("events/{id}")
+    @POST("events/{id}/assign")
     fun assign(@Path(value = "id") id: String): Single<Unit>
 }

@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.widget.doAfterTextChanged
-import kotlinx.android.synthetic.main.evog_input.*
 import java.time.LocalDateTime
 
 
@@ -36,7 +35,7 @@ fun Editable.toIntOrNull() = this.toString().parseToInt()
 fun LocalDateTime.toPrintable() = "$year/${monthValue + 1}/$dayOfMonth $hour:$minute"
 
 fun Activity.createToast(msg: String) {
-    Toast.makeText(this,msg,Toast.LENGTH_SHORT)
+    Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
 }
 private fun String.parseToInt() = try {
     this.toInt()

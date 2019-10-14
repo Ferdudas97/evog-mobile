@@ -7,5 +7,6 @@ object ViewModels {
     val singInViewModel = SignInViewModel(userRepository)
     val createEventViewModel = CreateEventViewModel(eventRepository)
     val eventListViewModel = EventListViewModel(eventRepository)
-    var eventDetailsViewModel = EventDetailsViewModel(eventRepository)
+    val eventDetailsViewModel = EventDetailsViewModel(eventRepository)
+    val notificationListViewModel = NotificationListViewModel(notificationRepository)
 }

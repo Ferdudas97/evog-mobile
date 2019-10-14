@@ -1,9 +1,9 @@
 package org.agh.pracinz.evog.viewmodel.login
 
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.Disposable
+import io.reactivex.Single
+import org.agh.pracinz.evog.model.data.Account
 import org.agh.pracinz.evog.model.data.LoggedAcountContextHolder
-import org.agh.pracinz.evog.model.data.User
 import org.agh.pracinz.evog.model.data.UserCredentials
 import org.agh.pracinz.evog.model.repository.UserRepository
 import javax.inject.Inject
@@ -14,12 +14,10 @@ import javax.inject.Singleton
 class LogInViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
 
 
-    private val disposables = mutableListOf<Disposable>()
 
-    fun logIn(login: String, password: String) {
+    fun logIn(login: String, password: String) : Single<Account> {
         val credentials = UserCredentials(login, password)
-        val disposable = userRepository.logIn(credentials)
-            .subscribe { repoAccount -> LoggedAcountContextHolder.account = repoAccount }
-        disposables.add(disposable)
+        return userRepository.logIn(credentials)
+            .doOnSuccess { repoAccount -> LoggedAcountContextHolder.account = repoAccount }
     }
 }

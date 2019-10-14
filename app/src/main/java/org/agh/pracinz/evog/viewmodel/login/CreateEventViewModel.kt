@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 
 class CreateEventViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
-    var state = CreateEventState(organizers = setOf(organizer))
+    var state = CreateEventState(organizers = organizer)
 
     fun createEvent(): Single<Event> {
         val event = state.toEvent()
@@ -45,7 +45,7 @@ private fun User.toParticipant() =
 
 data class CreateEventState(
     var name: String = "",
-    var organizers: Set<Participant> = setOf(),
+    var organizers: Participant,
     var guest: Set<Participant> = setOf(),
     var minAllowedAge: Int? = null,
     var maxAllowedAge: Int? = null,

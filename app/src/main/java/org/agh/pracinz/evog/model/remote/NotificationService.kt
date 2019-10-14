@@ -2,6 +2,7 @@ package org.agh.pracinz.evog.model.remote
 
 import io.reactivex.Single
 import org.agh.pracinz.evog.model.data.Notification
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -17,6 +18,9 @@ interface NotificationService {
     @POST("$path/accept")
     fun accept(@Path(value = "id") id: String): Single<Unit>
 
-    @GET
+    @DELETE("$path")
+    fun deleee(@Path(value = "id") id: String): Single<Unit>
+
+    @GET("/notifications")
     fun getAllUserNotifications(): Single<List<Notification>>
 }
