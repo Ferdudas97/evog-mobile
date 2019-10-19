@@ -13,7 +13,8 @@ import org.agh.pracinz.evog.view.inflate
 import org.agh.pracinz.evog.view.toPrintable
 
 
-class EventListAdapter(private val events: List<EventSnapshot>) : RecyclerView.Adapter<EventViewHolder>() {
+class EventListAdapter(private val events: List<EventSnapshot>) :
+    RecyclerView.Adapter<EventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflatedView = parent.inflate(R.layout.event_list_item, false)
@@ -42,11 +43,12 @@ class EventViewHolder(v: View) : RecyclerView.ViewHolder(v) {
             peopleLimitTV.text = event.peopleLimit()
         }
         itemView.setOnClickListener {
-           val intent = Intent(itemView.context,EventDetailsActivity::class.java)
-            intent.putExtra(EVENT_ID,event.id)
+            val intent = Intent(itemView.context, EventDetailsActivity::class.java)
+            intent.putExtra(EVENT_ID, event.id)
             itemView.context.startActivity(intent)
         }
     }
 
-    private fun EventSnapshot.peopleLimit() = "$minNumberOfPeople-$maxNumberOfPeople ($numberOfGuests)"
+    private fun EventSnapshot.peopleLimit() =
+        "$minNumberOfPeople-$maxNumberOfPeople ($numberOfGuests)"
 }

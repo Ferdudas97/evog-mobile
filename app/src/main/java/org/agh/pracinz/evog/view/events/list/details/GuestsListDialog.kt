@@ -8,14 +8,14 @@ import kotlinx.android.synthetic.main.guest_dialog.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.model.data.Participant
 
-class GuestsListDialog(val guests: List<Participant>, context: Context) : Dialog(context, R.style.AppTheme) {
+class GuestsListDialog(private val guests: Set<Participant>, context: Context) : Dialog(context, R.style.AppTheme) {
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.guest_dialog)
         guestRV.apply {
-            adapter = GuestAdapter(guests)
+            adapter = GuestAdapter(guests.toList())
             layoutManager = LinearLayoutManager(context)
         }
 

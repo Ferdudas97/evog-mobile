@@ -71,5 +71,6 @@ data class EventFilter(
     val maxNumberOfPeople: Int? = null,
     val minNumberOfPeople: Int? = null,
     val category: Category? = null,
-    val localization: Localization = Localization(0.0,0.0)
+    val localization: Localization = Localization(0.0,0.0),
+    val isAssigned: Boolean = false
 )

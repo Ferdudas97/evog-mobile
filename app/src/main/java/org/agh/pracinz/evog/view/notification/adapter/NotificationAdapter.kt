@@ -29,6 +29,7 @@ class NotificationAdapter(
         }
     }
 
+
 }
 
 class NotificationViewHolder(
@@ -45,8 +46,12 @@ class NotificationViewHolder(
                 listener.onRejectButtonClicked(notification.id, adapterPosition)
             }
             if( state != State.NOT_ACTION) {
-                itemView.acceptRequestButton.visibility = View.INVISIBLE
-                itemView.rejectRequestButton.visibility = View.INVISIBLE
+                itemView.acceptRequestButton.visibility = View.GONE
+                itemView.rejectRequestButton.visibility = View.GONE
+                itemView.deleteNotificationEvent.visibility = View.VISIBLE
+            }
+            itemView.deleteNotificationEvent.setOnClickListener {
+                listener.onAcceptButtonClicked(notification.id, adapterPosition)
             }
             itemView.acceptRequestButton.setOnClickListener {
                 listener.onAcceptButtonClicked(notification.id, adapterPosition)
@@ -58,6 +63,7 @@ class NotificationViewHolder(
 
 interface OnNotificationItemClickListener {
 
+    fun onDeleteButtonClicked(notificationId: String, position: Int)
     fun onRejectButtonClicked(notificationId: String, position: Int)
     fun onAcceptButtonClicked(notificationId: String, position: Int)
 }

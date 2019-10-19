@@ -23,6 +23,7 @@ import org.agh.pracinz.evog.view.common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
 import org.agh.pracinz.evog.view.common.RxFragment
 import org.agh.pracinz.evog.view.events.CreateEventActivity
 import org.agh.pracinz.evog.view.events.list.adapter.EventListAdapter
+import java.time.LocalDateTime
 
 class EventListActivity : RxFragment() {
 
@@ -49,6 +50,9 @@ class EventListActivity : RxFragment() {
                     layoutManager = linearLayoutManager
                 }
                 it.searchEventButton.setOnClickListener(this::onSearchButtonClicked)
+                it.currentEventsButton.setOnClickListener { onCurrentButtonClicked() }
+                it.pastEventsButton.setOnClickListener { onPastButtonClicked() }
+                it.presentEventsButton.setOnClickListener { onMyEventsButtonClicked() }
 
             }
     }
@@ -64,7 +68,32 @@ class EventListActivity : RxFragment() {
         Toast.makeText(activity, "Change filter ", Toast.LENGTH_SHORT).show()
     }
 
+    private fun onMyEventsButtonClicked() {
+        viewModel.state.apply {
+            startTime = null
+            endTime = LocalDateTime.now().plusDays(7)
+            isMy = true
+        }
+        showEvents()
 
+    }
+    private fun onPastButtonClicked() {
+        viewModel.state.apply {
+            endTime = LocalDateTime.now()
+            startTime = null
+            isMy = false
+        }
+        showEvents()
+    }
+
+    private fun onCurrentButtonClicked() {
+        viewModel.state.apply {
+            startTime = LocalDateTime.now()
+            endTime = LocalDateTime.now().plusDays(7)
+            isMy = false
+        }
+        showEvents()
+    }
     private fun onAddEventButtonClick(view: View) {
         val intent = Intent(activity, CreateEventActivity::class.java)
         startActivity(intent)
@@ -129,11 +158,11 @@ class EventListActivity : RxFragment() {
 
     private fun onSearchButtonClicked(view: View) {
         EventFilterDialog(viewModel, activity!!).apply {
-            create()
-            show()
             setOnDismissListener {
                 showEvents()
             }
+            create()
+            show()
         }
     }
 

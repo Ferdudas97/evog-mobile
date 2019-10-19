@@ -68,7 +68,14 @@ class NotificationListFragment : RxFragment(), OnNotificationItemClickListener {
             }
             .apply { disposables.add(this) }
 
-
     }
 
+    override fun onDeleteButtonClicked(notificationId: String, position: Int) {
+        viewModel.delete(notificationId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { _: Unit ->
+                notifications.removeAt(position)
+                adapter.notifyItemRemoved(position)
+            }.apply { disposables.add(this) }
+    }
 }

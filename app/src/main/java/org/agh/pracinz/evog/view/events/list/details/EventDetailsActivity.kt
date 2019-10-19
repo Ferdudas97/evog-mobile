@@ -32,7 +32,6 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.eventlocationDetailsMap) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
-
     }
 
     private fun setUi(event: Event) {
@@ -44,6 +43,7 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
             enddTimeDetailsTV.text = "Ends at ${endTime.toPrintable()}"
             setLocation(event)
         }
+        guestsButton.setOnClickListener { this.onGuestButtonClick(event) }
         when (event.isAssigned) {
             true -> assignToEventButton.visibility = View.INVISIBLE
             else -> assignToEventButton.visibility = View.VISIBLE
@@ -61,6 +61,13 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
                 finish()
             }
         )
+    }
+
+    private fun onGuestButtonClick(event: Event) {
+        GuestsListDialog(event.guest, this).apply {
+            create()
+            show()
+        }
     }
 
     private fun setLocation(event: Event) {

@@ -7,7 +7,6 @@ import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.Localization
 import org.agh.pracinz.evog.model.repository.EventRepository
 import java.time.LocalDateTime
-import kotlin.math.max
 
 
 class EventListViewModel(private val repository: EventRepository) : ViewModel() {
@@ -30,7 +29,8 @@ private fun EventListState.toFilter() = EventFilter(
     maxNumberOfPeople,
     minNumberOfPeople,
     category,
-    localization
+    localization,
+    isMy
 )
 
 data class EventListState(
@@ -38,12 +38,13 @@ data class EventListState(
     var name: String? = null,
     var minAllowedAge: Int? = null,
     var maxAllowedAge: Int? = null,
-    var startTime: LocalDateTime = LocalDateTime.now(),
-    var endTime: LocalDateTime = LocalDateTime.now().plusDays(1),
+    var startTime: LocalDateTime? = LocalDateTime.now(),
+    var endTime: LocalDateTime? = LocalDateTime.now().plusDays(7),
     var localizationRadius: Int = 10,
     var maxNumberOfPeople: Int? = null,
     var minNumberOfPeople: Int? = null,
-    var category: Category? = null
+    var category: Category? = null,
+    var isMy : Boolean = false
 )
 
 
