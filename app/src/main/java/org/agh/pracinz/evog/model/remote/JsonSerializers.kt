@@ -68,7 +68,7 @@ class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
             jsonReader.nextNull()
             return null
         } else {
-            val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+            val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
             return LocalDateTime.parse(jsonReader.nextString(),formater)
         }
     }

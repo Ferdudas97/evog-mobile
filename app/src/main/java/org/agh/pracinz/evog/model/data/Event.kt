@@ -21,6 +21,7 @@ data class Participant(
 
 data class Event(
     val id: String?,
+    val imageName: String,
     val name: String,
     val status: Status = Status.BEFORE,
     val details: EventDetails,
@@ -52,6 +53,7 @@ data class EventList(val events: List<EventSnapshot>)
 data class EventSnapshot(
     val id: String,
     val name: String,
+    val imageName: String,
     val localization: Localization,
     val minNumberOfPeople: Int?,
     val maxNumberOfPeople: Int?,

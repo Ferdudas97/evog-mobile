@@ -44,7 +44,7 @@ class EventListActivity : RxFragment() {
                 it.addEventButton.setOnClickListener(this::onAddEventButtonClick)
                 linearLayoutManager = LinearLayoutManager(activity)
                 getLocationPermission()
-                this.eventAdapter = EventListAdapter(events)
+                this.eventAdapter = EventListAdapter(events, viewModel)
                 it.eventsRV.apply {
                     adapter = eventAdapter
                     layoutManager = linearLayoutManager

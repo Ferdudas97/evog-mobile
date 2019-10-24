@@ -1,6 +1,7 @@
 package org.agh.pracinz.evog.model.remote
 
 import io.reactivex.Single
+import okhttp3.ResponseBody
 import org.agh.pracinz.evog.model.data.Event
 import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.EventSnapshot
@@ -24,4 +25,11 @@ interface EventService {
 
     @POST("events/{id}/assign")
     fun assign(@Path(value = "id") id: String): Single<Unit>
+
+    @GET("images/{name}")
+    fun getEventIcon(@Path(value = "name") name: String): Single<ResponseBody>
+
+    @GET("images")
+    fun getEventIconsNames(): Single<List<String>>
+
 }

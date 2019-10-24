@@ -8,48 +8,52 @@ import android.widget.TimePicker
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import kotlin.reflect.KMutableProperty0
 
 
 class MyDatePicker(private val context: Context) {
 
 
     private val now = LocalDateTime.now()
-    private var updateUi : () -> Unit = {}
-    private fun onDateSet(property0: KMutableProperty0<LocalDateTime>) =
+    private var updateUi: (LocalDateTime) -> Unit = {}
+    private fun onDateSet(localDateTime: LocalDateTime?) =
         { datePicker: DatePicker?, year: Int, montOfYeay: Int, dayOfMonth: Int ->
-            onDateSet(datePicker, year, montOfYeay, dayOfMonth, property0)
+            onDateSet(datePicker, year, montOfYeay, dayOfMonth, localDateTime)
         }
 
-    private fun onTimeSet(property0: KMutableProperty0<LocalDateTime>) =
+    private fun onTimeSet(localDateTime: LocalDateTime?) =
         { view: TimePicker?, hourOfDay: Int, minute: Int ->
-            onTimeSet(view, hourOfDay, minute, property0)
+            onTimeSet(view, hourOfDay, minute, localDateTime)
         }
 
     private fun onDateSet(
         datePicker: DatePicker?, year: Int, montOfYeay: Int, dayOfMonth: Int,
-        property0: KMutableProperty0<LocalDateTime>
+        localDateTime: LocalDateTime?
     ) {
-        property0.set(
-            LocalDateTime.of(
-                LocalDate.of(year, montOfYeay, dayOfMonth),
-                property0.get().toLocalTime()
-            )
+
+        val pickedDate = LocalDateTime.of(
+            LocalDate.of(year, montOfYeay, dayOfMonth),
+            localDateTime?.toLocalTime()
         )
-        TimePickerDialog(context, onTimeSet(property0), now.hour, now.minute, true).show()
+        TimePickerDialog(context, onTimeSet(pickedDate), now.hour, now.minute, true).show()
 
     }
 
-    private fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int, property0: KMutableProperty0<LocalDateTime>) {
-        property0.set(LocalDateTime.of(property0.get().toLocalDate(), LocalTime.of(hourOfDay, minute)))
-        updateUi()
+    private fun onTimeSet(
+        view: TimePicker?,
+        hourOfDay: Int,
+        minute: Int,
+        localDateTime: LocalDateTime?
+    ) {
+        val pickedTime =
+            LocalDateTime.of(localDateTime?.toLocalDate(), LocalTime.of(hourOfDay, minute))
+        updateUi(pickedTime)
     }
 
-    fun createPicker(property0: KMutableProperty0<LocalDateTime>,f: () -> Unit) {
+    fun createPicker(localDateTime: LocalDateTime?, f: (LocalDateTime) -> Unit) {
         updateUi = f
         DatePickerDialog(
             context,
-            onDateSet(property0),
+            onDateSet(localDateTime),
             now.year,
             now.monthValue,
             now.dayOfMonth
@@ -57,7 +61,7 @@ class MyDatePicker(private val context: Context) {
             .show()
     }
 
-    fun setOnTimePicked(f: () -> Unit) {
+    fun setOnTimePicked(f: (LocalDateTime) -> Unit) {
         updateUi = f
     }
 

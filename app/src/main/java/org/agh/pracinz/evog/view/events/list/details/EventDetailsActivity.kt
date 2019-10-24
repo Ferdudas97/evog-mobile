@@ -1,8 +1,10 @@
 package org.agh.pracinz.evog.view.events.list.details
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.RequiresApi
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -34,7 +36,10 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
         mapFragment!!.getMapAsync(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun setUi(event: Event) {
+        viewModel.getIcon(event.imageName)
+            .into(eventDetailsIcon)
         eventNameDetailsTV.text = event.name
         event.details.apply {
             descriptionDetailTV.text = description

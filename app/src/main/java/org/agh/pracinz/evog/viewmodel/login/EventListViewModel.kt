@@ -1,7 +1,8 @@
 package org.agh.pracinz.evog.viewmodel.login
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import org.agh.pracinz.evog.di.manual.eventRepository
 import org.agh.pracinz.evog.model.data.Category
 import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.Localization
@@ -14,8 +15,10 @@ class EventListViewModel(private val repository: EventRepository) : ViewModel() 
 
     val state = EventListState()
 
-    fun getEventsFiltered() = eventRepository.getFiltered(state.toFilter())
+    fun getEventsFiltered() = repository.getFiltered(state.toFilter())
 
+    @RequiresApi(Build.VERSION_CODES.P)
+    fun getIcon(name: String) = repository.getIcon(name)
 }
 
 

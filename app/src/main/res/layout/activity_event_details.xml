@@ -15,15 +15,15 @@
             android:ellipsize="end"
             android:scrollHorizontally="false"
             android:text="asddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/eventDetailsIcon"
             app:layout_constraintTop_toBottomOf="@+id/eventNameDetailsTV" />
 
     <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="42dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:id="@+id/eventDetailsIcon"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -35,7 +35,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="Event name"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/eventDetailsIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -98,6 +98,6 @@
             android:layout_marginTop="44dp"
             android:text="Znajomi"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/eventDetailsIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

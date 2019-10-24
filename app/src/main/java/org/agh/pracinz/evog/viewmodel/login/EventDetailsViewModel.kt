@@ -1,5 +1,7 @@
 package org.agh.pracinz.evog.viewmodel.login
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import org.agh.pracinz.evog.model.data.Event
@@ -16,4 +18,7 @@ class EventDetailsViewModel(private val eventRepository: EventRepository) : View
     fun assign(id: String) : Single<Unit> {
         return eventRepository.assign(id)
     }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    fun getIcon(name: String) = eventRepository.getIcon(name)
 }

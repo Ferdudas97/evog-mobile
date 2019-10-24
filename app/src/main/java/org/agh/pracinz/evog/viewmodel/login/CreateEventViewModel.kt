@@ -1,5 +1,7 @@
 package org.agh.pracinz.evog.viewmodel.login
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import org.agh.pracinz.evog.model.data.*
@@ -17,6 +19,11 @@ class CreateEventViewModel(private val eventRepository: EventRepository) : ViewM
         return eventRepository.save(event)
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
+    fun getIcon(name: String) = eventRepository.getIcon(name)
+
+    fun getIcons() = eventRepository.getIcons()
+
 }
 
 private val organizer = Participant("1", "radek", "chrzanowski", 23)
@@ -25,6 +32,7 @@ private val organizer = Participant("1", "radek", "chrzanowski", 23)
 private fun CreateEventState.toEvent() = Event(
     id = null,
     name = name,
+    imageName = imageName,
     organizers = organizers,
     guest = setOf(),
     details = EventDetails(
@@ -45,6 +53,7 @@ private fun User.toParticipant() =
 
 data class CreateEventState(
     var name: String = "",
+    var imageName: String = "top.png",
     var organizers: Participant,
     var guest: Set<Participant> = setOf(),
     var minAllowedAge: Int? = null,

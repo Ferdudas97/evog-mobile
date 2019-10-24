@@ -10,12 +10,9 @@ import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.view.get
-import com.jakewharton.rxbinding2.widget.text
 import kotlinx.android.synthetic.main.dialog_filter_events.*
 import org.agh.pracinz.evog.R
-import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Category
-import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.view.common.MyDatePicker
 import org.agh.pracinz.evog.view.toIntOrNull
 import org.agh.pracinz.evog.view.toPrintable
@@ -38,13 +35,15 @@ class EventFilterDialog(private val viewModel: EventListViewModel, context: Cont
     private fun setListeners() {
         viewModel.state.apply {
             endTimeFilterInput.setOnClickListener {
-                MyDatePicker(context).createPicker(this::endTime) {
-                    endTimeFilterInput.text = "End time: ${endTime.toPrintable()}"
+                MyDatePicker(context).createPicker(this.endTime) {
+                    this.endTime = it
+                    endTimeFilterInput.text = "End time: ${endTime?.toPrintable()}"
                 }
             }
             startTimeFilterInput.setOnClickListener {
-                MyDatePicker(context).createPicker(this::startTime) {
-                    startTimeFilterInput.text = "Start time: ${startTime.toPrintable()}"
+                MyDatePicker(context).createPicker(this.startTime) {
+                    this.startTime = it
+                    startTimeFilterInput.text = "Start time: ${startTime?.toPrintable()}"
                 }
             }
             radiusFilter.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
@@ -98,8 +97,14 @@ class EventFilterDialog(private val viewModel: EventListViewModel, context: Cont
             minAgeFilterInput.setText(minAllowedAge?.toString(), TextView.BufferType.EDITABLE)
             maxAgeFilterInput.setText(maxAllowedAge?.toString(), TextView.BufferType.EDITABLE)
             eventNameFilterInput.setText(name, TextView.BufferType.EDITABLE)
-            startTimeFilterInput.setText("Start time: ${startTime.toPrintable()}", TextView.BufferType.EDITABLE)
-            endTimeFilterInput.setText("End time: ${endTime.toPrintable()}", TextView.BufferType.EDITABLE)
+            startTimeFilterInput.setText(
+                "Start time: ${startTime?.toPrintable()}",
+                TextView.BufferType.EDITABLE
+            )
+            endTimeFilterInput.setText(
+                "End time: ${endTime?.toPrintable()}",
+                TextView.BufferType.EDITABLE
+            )
             radiusFilter.progress = localizationRadius
             categoryFilterRG.setChecked(category.toString())
 
