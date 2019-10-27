@@ -70,8 +70,8 @@ class EventListActivity : RxFragment() {
 
     private fun onMyEventsButtonClicked() {
         viewModel.state.apply {
-            startTime = null
-            endTime = LocalDateTime.now().plusDays(7)
+            startTime = LocalDateTime.now()
+            endTime = LocalDateTime.MAX
             isMy = true
         }
         showEvents()
@@ -80,8 +80,8 @@ class EventListActivity : RxFragment() {
     private fun onPastButtonClicked() {
         viewModel.state.apply {
             endTime = LocalDateTime.now()
-            startTime = null
-            isMy = false
+            startTime = LocalDateTime.MIN
+            isMy = true
         }
         showEvents()
     }
@@ -143,7 +143,6 @@ class EventListActivity : RxFragment() {
         when (requestCode) {
             PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true
-                setLocalization()
             }
         }
     }

@@ -49,7 +49,7 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
             setLocation(event)
         }
         guestsButton.setOnClickListener { this.onGuestButtonClick(event) }
-        when (event.isAssigned) {
+        when (event.assigned) {
             true -> assignToEventButton.visibility = View.INVISIBLE
             else -> assignToEventButton.visibility = View.VISIBLE
         }
@@ -69,7 +69,7 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
     }
 
     private fun onGuestButtonClick(event: Event) {
-        GuestsListDialog(event.guest, this).apply {
+        GuestsListDialog(event.guest + event.organizers, this).apply {
             create()
             show()
         }

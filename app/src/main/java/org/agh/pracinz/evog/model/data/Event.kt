@@ -25,7 +25,7 @@ data class Event(
     val name: String,
     val status: Status = Status.BEFORE,
     val details: EventDetails,
-    val isAssigned : Boolean = false,
+    val assigned: Boolean = false,
     val organizers: Participant,
     val guest: Set<Participant>
 )

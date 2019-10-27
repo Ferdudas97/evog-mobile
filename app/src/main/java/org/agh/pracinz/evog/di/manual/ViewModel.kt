@@ -9,4 +9,5 @@ object ViewModels {
     val eventListViewModel = EventListViewModel(eventRepository)
     val eventDetailsViewModel = EventDetailsViewModel(eventRepository)
     val notificationListViewModel = NotificationListViewModel(notificationRepository)
+    val userDetailsViewModel = UserDetailsViewModel(userRepository)
 }

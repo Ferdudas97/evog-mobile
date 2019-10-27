@@ -34,7 +34,7 @@ fun RadioGroup.onSelectedChange(f: (String) -> Unit) =
     }
 
 fun Editable.toIntOrNull() = this.toString().parseToInt()
-fun LocalDateTime.toPrintable() = "$year/${monthValue + 1}/$dayOfMonth $hour:$minute"
+fun LocalDateTime.toPrintable() = "$year/$monthValue/$dayOfMonth $hour:$minute"
 
 fun Activity.createToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()

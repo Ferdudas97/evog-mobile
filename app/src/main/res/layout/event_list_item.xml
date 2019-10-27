@@ -50,19 +50,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/startTimeTV" android:text="-"/>
         </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-            <TextView
-                    android:text="End time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/textView9"/>
-            <TextView
-                    android:text="-"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/endTimeTV"/>
-        </LinearLayout>
     </LinearLayout>
     <TextView
             android:text="People :"

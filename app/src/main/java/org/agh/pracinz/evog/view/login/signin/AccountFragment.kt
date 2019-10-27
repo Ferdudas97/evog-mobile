@@ -1,31 +1,17 @@
 package org.agh.pracinz.evog.view.login.signin
 
-import android.app.Activity
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
-import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_login.*
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account.view.*
-import kotlinx.android.synthetic.main.fragment_personal_info.*
-
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
-import org.agh.pracinz.evog.di.module.ViewModelFactory
 import org.agh.pracinz.evog.viewmodel.login.SignInViewModel
-import javax.inject.Inject
 
 class AccountFragment : Fragment(), FragmentValidator {
 
