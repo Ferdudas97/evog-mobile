@@ -69,7 +69,7 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
     }
 
     private fun onGuestButtonClick(event: Event) {
-        GuestsListDialog(event.guest + event.organizers, this).apply {
+        GuestsListDialog((event.guest + event.organizers).toMutableSet(), viewModel, this).apply {
             create()
             show()
         }

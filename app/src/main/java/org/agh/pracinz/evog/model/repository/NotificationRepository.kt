@@ -12,5 +12,4 @@ class NotificationRepository(private val service: NotificationService) {
     fun delete(id: String) = service.deleee(id)
 
     fun getAll() = service.getAllUserNotifications()
-
 }

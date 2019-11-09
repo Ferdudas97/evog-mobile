@@ -63,6 +63,10 @@ class EventListActivity : RxFragment() {
         this.eventAdapter.notifyDataSetChanged()
     }
 
+    override fun onResume() {
+        super.onResume()
+        showEvents()
+    }
     private fun onError(e: Throwable) {
         Log.e("EventListActivity", e.message)
         Toast.makeText(activity, "Change filter ", Toast.LENGTH_SHORT).show()
@@ -71,7 +75,7 @@ class EventListActivity : RxFragment() {
     private fun onMyEventsButtonClicked() {
         viewModel.state.apply {
             startTime = LocalDateTime.now()
-            endTime = LocalDateTime.MAX
+            endTime = LocalDateTime.now().plusYears(1L)
             isMy = true
         }
         showEvents()
@@ -80,7 +84,7 @@ class EventListActivity : RxFragment() {
     private fun onPastButtonClicked() {
         viewModel.state.apply {
             endTime = LocalDateTime.now()
-            startTime = LocalDateTime.MIN
+            startTime = LocalDateTime.now().minusYears(1L)
             isMy = true
         }
         showEvents()

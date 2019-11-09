@@ -8,14 +8,11 @@ import org.agh.pracinz.evog.model.data.User
 import org.agh.pracinz.evog.model.data.UserCredentials
 import org.agh.pracinz.evog.model.repository.UserRepository
 import java.time.LocalDate
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 typealias ValidationError = String
 
-@Singleton
-class SignInViewModel @Inject constructor(private val userRepository: UserRepository) : ViewModel() {
+class SignInViewModel(private val userRepository: UserRepository) : ViewModel() {
 
 
     var firstName: String = ""
@@ -27,6 +24,7 @@ class SignInViewModel @Inject constructor(private val userRepository: UserReposi
     var email: String? = null
     var password: String = ""
     var login: String = " "
+    var file: ByteArray? = null
 
     fun create() : Single<Account> {
         val user = User(null, firstName, lastName, birthDate, description, sex, phoneNumber, email)

@@ -5,10 +5,7 @@ import okhttp3.ResponseBody
 import org.agh.pracinz.evog.model.data.Event
 import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.EventSnapshot
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 interface EventService {
@@ -16,6 +13,8 @@ interface EventService {
     @POST(value = "events")
     fun create(@Body event: Event): Single<Event>
 
+    @DELETE(value = "events/{eventId}/guests/{guestId}")
+    fun removeGuest(@Path(value = "eventId") eventId: String, @Path(value = "guestId") userId: String): Single<Unit>
 
     @POST(value = "events/filter")
     fun getFilteredEvents(@Body eventFilter: EventFilter): Single<List<EventSnapshot>>

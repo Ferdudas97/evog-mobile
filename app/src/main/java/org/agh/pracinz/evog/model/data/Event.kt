@@ -16,7 +16,8 @@ data class Participant(
     val id: String,
     val firstName: String,
     val lastName: String,
-    val age: Int
+    val age: Int,
+    val fileId: String? = null
 )
 
 data class Event(
@@ -39,7 +40,8 @@ data class EventDetails(
     val startDate: LocalDateTime,
     val endTime: LocalDateTime,
     val localization: Localization,
-    val category: Category
+    val category: Category,
+    val isAssigned: Boolean = false
 )
 
 
@@ -73,6 +75,6 @@ data class EventFilter(
     val maxNumberOfPeople: Int? = null,
     val minNumberOfPeople: Int? = null,
     val category: Category? = null,
-    val localization: Localization = Localization(0.0,0.0),
+    val localization: Localization = Localization(0.0, 0.0),
     val isAssigned: Boolean = false
 )

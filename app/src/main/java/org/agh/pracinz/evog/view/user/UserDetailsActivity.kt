@@ -32,6 +32,7 @@ class UserDetailsActivity : AppCompatActivity() {
             userDetailsName.text = "$firstName $lastName"
             userDetailsDescription.text = description
             userDetailsPhoneNumberTv.text = phoneNumber
+            viewModel.loadImage(userDetailsPhotoIV, user.photosId.first())
 
         }
     }

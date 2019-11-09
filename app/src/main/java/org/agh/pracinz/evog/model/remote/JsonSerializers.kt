@@ -53,12 +53,14 @@ class LocalDateAdapter : TypeAdapter<LocalDate>() {
 }
 
 class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
+    val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
+
     @Throws(IOException::class)
     override fun write(jsonWriter: JsonWriter, localDate: LocalDateTime?) {
         if (localDate == null) {
             jsonWriter.nullValue()
         } else {
-            jsonWriter.value(localDate.toString())
+            jsonWriter.value(formater.format(localDate))
         }
     }
 
@@ -68,7 +70,6 @@ class LocalDateTimeAdapter : TypeAdapter<LocalDateTime>() {
             jsonReader.nextNull()
             return null
         } else {
-            val formater = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
             return LocalDateTime.parse(jsonReader.nextString(),formater)
         }
     }

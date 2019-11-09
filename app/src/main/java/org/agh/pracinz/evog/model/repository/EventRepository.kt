@@ -1,7 +1,5 @@
 package org.agh.pracinz.evog.model.repository
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.squareup.picasso.Picasso
 import io.reactivex.Single
 import org.agh.pracinz.evog.di.manual.BASE_URL
@@ -14,6 +12,7 @@ import org.agh.pracinz.evog.model.remote.EventService
 class EventRepository(private val eventService: EventService) {
 
 
+    fun removeGuest(eventId: String, userId: String) = eventService.removeGuest(eventId, userId)
     fun save(event: Event): Single<Event> {
         return eventService.create(event)
     }
@@ -38,7 +37,9 @@ class EventRepository(private val eventService: EventService) {
     //    @SuppressLint("NewApi")
 //    fun getIcons() : Single<List<Bitmap>> = eventService.getEventIconsNames()
 //        .flatMap { name-> name.map { getIcon(it) } }
-    @RequiresApi(Build.VERSION_CODES.P)
+
     fun getIcon(name: String) = Picasso.get().load("${BASE_URL}images/$name")
+
+    fun loadImage(fileId: String) = Picasso.get().load("${BASE_URL}images/nostatic/$fileId")
 
 }
