@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 
 const val BASE_URL = "http://192.168.0.241:8080/"
 
-private val mapper = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
+val mapper = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
     .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeAdapter()).create()
 
 private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

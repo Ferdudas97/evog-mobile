@@ -26,10 +26,12 @@ class SignInViewModel(private val userRepository: UserRepository) : ViewModel() 
     var login: String = " "
     var file: ByteArray? = null
 
-    fun create() : Single<Account> {
-        val user = User(null, firstName, lastName, birthDate, description, sex, phoneNumber, email)
+    fun create(): Single<Account> {
+        val photos = file?.let { listOf(it) } ?: emptyList()
+        val user =
+            User(null, firstName, lastName, birthDate, description, sex, phoneNumber, email)
         val credentials = UserCredentials(login, password)
-        return userRepository.createAccount(account = Account(credentials, user))
+        return userRepository.createAccount(account = Account(credentials, user), photos = photos)
     }
 
     fun validatePassoword(password: String): List<ValidationError> {

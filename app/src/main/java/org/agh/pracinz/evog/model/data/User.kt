@@ -23,7 +23,6 @@ data class User(val id: String?,
                 val sex: Sex,
                 val phoneNumber: String?,
                 val email: String?,
-                val photos: List<ByteArray> = emptyList(),
                 val photosId: List<String> = emptyList()
 )
 

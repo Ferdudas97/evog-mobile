@@ -5,7 +5,7 @@ import org.agh.pracinz.evog.model.repository.NotificationRepository
 import org.agh.pracinz.evog.model.repository.UserRepository
 
 
-val userRepository = UserRepository(userService)
+val userRepository = UserRepository(userService, mapper)
 
 val eventRepository = EventRepository(eventService)
 
