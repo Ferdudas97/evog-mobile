@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 
 class CreateEventViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
-    var state = CreateEventState(organizers = organizer)
+    var state = CreateEventState()
 
     fun createEvent(): Single<Event> {
         val event = state.toEvent()
@@ -26,14 +26,12 @@ class CreateEventViewModel(private val eventRepository: EventRepository) : ViewM
 
 }
 
-private val organizer = Participant("1", "radek", "chrzanowski", 23)
-
 
 private fun CreateEventState.toEvent() = Event(
     id = null,
     name = name,
     imageName = imageName,
-    organizers = organizers,
+    organizers = LoggedAcountContextHolder.account.user.toParticipant(),
     guest = setOf(),
     details = EventDetails(
         minAllowedAge,
@@ -49,12 +47,17 @@ private fun CreateEventState.toEvent() = Event(
 )
 
 private fun User.toParticipant() =
-    Participant(id!!, firstName, lastName, age = LocalDate.now().year - this.birthDate.year)
+    Participant(
+        id!!,
+        firstName,
+        lastName,
+        age = LocalDate.now().year - this.birthDate.year,
+        fileId = this.photosId.firstOrNull()
+    )
 
 data class CreateEventState(
     var name: String = "",
     var imageName: String = "top.png",
-    var organizers: Participant,
     var guest: Set<Participant> = setOf(),
     var minAllowedAge: Int? = null,
     var maxAllowedAge: Int? = null,

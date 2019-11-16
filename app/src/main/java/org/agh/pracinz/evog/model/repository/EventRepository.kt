@@ -6,6 +6,7 @@ import org.agh.pracinz.evog.di.manual.BASE_URL
 import org.agh.pracinz.evog.model.data.Event
 import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.EventSnapshot
+import org.agh.pracinz.evog.model.data.Message
 import org.agh.pracinz.evog.model.remote.EventService
 
 
@@ -28,6 +29,8 @@ class EventRepository(private val eventService: EventService) {
     fun getById(id: String): Single<Event> {
         return eventService.getById(id)
     }
+
+    fun sendMessage(message: Message, eventId: String) = eventService.sendMessage(message, eventId)
 
     fun getIcons(): Single<List<String>> = eventService.getEventIconsNames()
 

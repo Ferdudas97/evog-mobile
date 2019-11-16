@@ -13,7 +13,7 @@ import androidx.core.view.get
 import kotlinx.android.synthetic.main.dialog_filter_events.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.model.data.Category
-import org.agh.pracinz.evog.view.common.MyDatePicker
+import org.agh.pracinz.evog.view.common.MyDateTimePicker
 import org.agh.pracinz.evog.view.toIntOrNull
 import org.agh.pracinz.evog.view.toPrintable
 import org.agh.pracinz.evog.viewmodel.login.EventListViewModel
@@ -35,13 +35,13 @@ class EventFilterDialog(private val viewModel: EventListViewModel, context: Cont
     private fun setListeners() {
         viewModel.state.apply {
             endTimeFilterInput.setOnClickListener {
-                MyDatePicker(context).createPicker(this.endTime) {
+                MyDateTimePicker(context).createPicker(this.endTime) {
                     this.endTime = it
                     endTimeFilterInput.text = "End time: ${endTime?.toPrintable()}"
                 }
             }
             startTimeFilterInput.setOnClickListener {
-                MyDatePicker(context).createPicker(this.startTime) {
+                MyDateTimePicker(context).createPicker(this.startTime) {
                     this.startTime = it
                     startTimeFilterInput.text = "Start time: ${startTime?.toPrintable()}"
                 }

@@ -42,10 +42,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
-        <CalendarView
-                android:id="@+id/birthDate"
-                android:layout_width="214dp"
-                android:layout_height="86dp" />
+        <Button
+                android:id="@+id/birthDateButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Birth Date" />
 
         <Space
                 android:layout_width="match_parent"

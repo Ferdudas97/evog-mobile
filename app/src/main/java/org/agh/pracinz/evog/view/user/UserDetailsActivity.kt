@@ -1,5 +1,7 @@
 package org.agh.pracinz.evog.view.user
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,4 +38,14 @@ class UserDetailsActivity : AppCompatActivity() {
 
         }
     }
+
+    companion object {
+        fun open(context: Context, userId: String) {
+            val intent = Intent(context, UserDetailsActivity::class.java)
+            intent.putExtra("USER_ID", userId)
+            context.startActivity(intent)
+        }
+    }
 }
+
+

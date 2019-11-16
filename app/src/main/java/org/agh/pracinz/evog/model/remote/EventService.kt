@@ -5,6 +5,7 @@ import okhttp3.ResponseBody
 import org.agh.pracinz.evog.model.data.Event
 import org.agh.pracinz.evog.model.data.EventFilter
 import org.agh.pracinz.evog.model.data.EventSnapshot
+import org.agh.pracinz.evog.model.data.Message
 import retrofit2.http.*
 
 
@@ -31,4 +32,6 @@ interface EventService {
     @GET("images")
     fun getEventIconsNames(): Single<List<String>>
 
+    @POST("events/{eventId}/message")
+    fun sendMessage(@Body message: Message, @Path(value = "eventId") eventId: String): Single<Unit>
 }

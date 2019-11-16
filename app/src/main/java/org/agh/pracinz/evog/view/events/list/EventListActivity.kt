@@ -65,7 +65,8 @@ class EventListActivity : RxFragment() {
 
     override fun onResume() {
         super.onResume()
-        showEvents()
+
+//        showEvents()
     }
     private fun onError(e: Throwable) {
         Log.e("EventListActivity", e.message)
@@ -131,8 +132,8 @@ class EventListActivity : RxFragment() {
                         Localization(latitude = location.latitude, longitude = location.longitude)
                     showEvents()
                 } else {
-                    Log.d("TAG", "Current location is null. Using defaults.");
-                    Log.e("TAG", "Exception: %s", task.exception);
+                    Log.d("TAG", "Current location is null. Using defaults.")
+                    Log.e("TAG", "Exception: %s", task.exception)
                 }
             }
         }

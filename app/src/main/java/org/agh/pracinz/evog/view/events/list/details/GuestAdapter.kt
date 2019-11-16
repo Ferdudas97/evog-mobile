@@ -1,6 +1,5 @@
 package org.agh.pracinz.evog.view.events.list.details
 
-import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -59,16 +58,14 @@ class GuestViewHolder(
                     )
                 }
             } else {
-                itemView.actionButtonsGuestItem.visibility = View.INVISIBLE
+                itemView.actionButtonsGuestItem.visibility = View.GONE
             }
         }
         guest.fileId?.let {
             listner.loadPhoto(itemView.guestPhoto, it)
         }
         itemView.setOnClickListener {
-            val intent = Intent(itemView.context, UserDetailsActivity::class.java)
-            intent.putExtra("USER_ID", guest.id)
-            itemView.context.startActivity(intent)
+            UserDetailsActivity.open(itemView.context, guest.id)
         }
     }
 

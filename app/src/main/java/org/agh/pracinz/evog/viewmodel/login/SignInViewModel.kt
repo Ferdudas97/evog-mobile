@@ -34,11 +34,11 @@ class SignInViewModel(private val userRepository: UserRepository) : ViewModel() 
         return userRepository.createAccount(account = Account(credentials, user), photos = photos)
     }
 
-    fun validatePassoword(password: String): List<ValidationError> {
+    fun validatePassoword(password: String): ValidationError? {
         if (password.length <= 6) {
-            return listOf("password should have minimum 6 chars")
+            return "password should have minimum 6 chars"
         }
-        return emptyList()
+        return null
     }
 
     fun validateLogin(login: String): String? {

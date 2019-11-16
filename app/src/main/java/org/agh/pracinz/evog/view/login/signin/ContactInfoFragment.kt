@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_contact_info.view.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
+import org.agh.pracinz.evog.view.onTextChange
 import org.agh.pracinz.evog.viewmodel.login.SignInViewModel
 
 class ContactInfoFragment : Fragment() {
@@ -21,25 +21,26 @@ class ContactInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_contact_info, container, false)
+
         viewModel = ViewModels.singInViewModel
+        return inflater.inflate(R.layout.fragment_contact_info, container, false).apply {
 
-        view.phoneNumberInput.doAfterTextChanged {
-            it?.toString()?.let { number -> viewModel.phoneNumber = number }
-        }
-        view.emailInput.doAfterTextChanged {
-            it?.toString()?.let { input -> viewModel.email = input }
-        }
 
-        view.createAcccountButton.setOnClickListener {
-            viewModel.create().subscribe { account -> signInActvity().finish(account) }
-        }
+            phoneNumberInput.onTextChange {
+                viewModel.phoneNumber = it
+            }
+            emailInput.onTextChange {
+                viewModel.email = it
+            }
 
-        return view
+            createAcccountButton.setOnClickListener {
+                viewModel.create().subscribe { account -> signInActvity().finish(account) }
+            }
+
+        }
     }
 
-
-    fun signInActvity() = (getActivity() as SignInActivity)
+    fun signInActvity() = (activity as SignInActivity)
 
 
 }

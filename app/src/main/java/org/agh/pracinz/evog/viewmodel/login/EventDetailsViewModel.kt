@@ -6,7 +6,11 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import org.agh.pracinz.evog.model.data.Event
+import org.agh.pracinz.evog.model.data.LoggedAcountContextHolder
+import org.agh.pracinz.evog.model.data.Message
+import org.agh.pracinz.evog.model.data.toParticipant
 import org.agh.pracinz.evog.model.repository.EventRepository
+import java.time.LocalDateTime
 
 
 class EventDetailsViewModel(private val eventRepository: EventRepository) : ViewModel() {
@@ -22,6 +26,15 @@ class EventDetailsViewModel(private val eventRepository: EventRepository) : View
 
     fun assign(id: String): Single<Unit> {
         return eventRepository.assign(id)
+    }
+
+    fun sendMessage(content: String): Single<Unit> {
+        val msg = Message(
+            text = content,
+            createdAt = LocalDateTime.now(),
+            creator = LoggedAcountContextHolder.account.user.toParticipant()
+        )
+        return eventRepository.sendMessage(msg, eventId = event.id!!)
     }
 
     @RequiresApi(Build.VERSION_CODES.P)

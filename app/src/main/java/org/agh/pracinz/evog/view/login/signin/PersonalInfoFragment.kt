@@ -11,9 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -22,9 +20,11 @@ import kotlinx.android.synthetic.main.fragment_personal_info.view.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Sex
+import org.agh.pracinz.evog.view.common.MyDatePicker
+import org.agh.pracinz.evog.view.onSelectedChange
+import org.agh.pracinz.evog.view.onTextChange
 import org.agh.pracinz.evog.viewmodel.login.SignInViewModel
 import java.io.ByteArrayOutputStream
-import java.time.LocalDate
 
 
 private const val PICK_IMAGE_REQUEST = 1
@@ -37,28 +37,28 @@ class PersonalInfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_personal_info, container, false)
         viewModel = ViewModels.singInViewModel
-        view.firstNameInput.doAfterTextChanged {
-            it?.toString()?.let { input -> viewModel.firstName = input }
+        return inflater.inflate(R.layout.fragment_personal_info, container, false).apply {
+            firstNameInput.onTextChange {
+                viewModel.firstName = it
+            }
+            secondNameInput.onTextChange {
+                viewModel.lastName = it
+            }
+            descriptionInput.onTextChange {
+                viewModel.description = it
+            }
+            sexRG.onSelectedChange {
+                viewModel.sex = Sex.valueOf(it)
+            }
+            birthDateButton.setOnClickListener {
+                MyDatePicker(activity!!).createPicker {
+                    viewModel.birthDate = it
+                }
+            }
+            createUserPhotoIV.setOnClickListener { chooseImage() }
+            defaultImage()?.let { createUserPhotoIV.setImageResource(it) }
         }
-        view.secondNameInput.doAfterTextChanged {
-            it?.toString()?.let { input -> viewModel.lastName = input }
-        }
-        view.descriptionInput.doAfterTextChanged {
-            it?.toString()?.let { input -> viewModel.description = input }
-        }
-        view.sexRG.setOnCheckedChangeListener { group, checkedId ->
-            viewModel.sex =
-                Sex.valueOf(group.findViewById<RadioButton>(checkedId).text.toString().toUpperCase())
-        }
-        view.birthDate.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.birthDate = LocalDate.of(year, month, dayOfMonth)
-        }
-        view.createUserPhotoIV.setOnClickListener { chooseImage() }
-        defaultImage()?.let { view.createUserPhotoIV.setImageResource(it) }
-
-        return view
     }
 
     private fun defaultImage(): Int? {

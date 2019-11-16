@@ -26,6 +26,15 @@ data class User(val id: String?,
                 val photosId: List<String> = emptyList()
 )
 
+fun User.toParticipant() =
+    Participant(
+        id!!,
+        firstName,
+        lastName,
+        age = LocalDate.now().year - this.birthDate.year,
+        fileId = this.photosId.firstOrNull()
+    )
+
 
 object LoggedAcountContextHolder {
 

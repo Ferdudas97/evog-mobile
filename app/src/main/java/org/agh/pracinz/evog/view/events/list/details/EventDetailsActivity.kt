@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,17 +19,21 @@ import kotlinx.android.synthetic.main.activity_event_details.*
 import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Event
+import org.agh.pracinz.evog.model.data.Message
 import org.agh.pracinz.evog.view.common.EVENT_ID
 import org.agh.pracinz.evog.view.common.RxActivity
 import org.agh.pracinz.evog.view.createToast
+import org.agh.pracinz.evog.view.events.list.details.disscusion.MessageAdapter
+import org.agh.pracinz.evog.view.events.list.details.disscusion.MessageItemListener
 import org.agh.pracinz.evog.view.toPrintable
+import org.agh.pracinz.evog.view.user.UserDetailsActivity
 import kotlin.random.Random
 
-class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
+class EventDetailsActivity : RxActivity(), OnMapReadyCallback, MessageItemListener {
 
     private val viewModel = ViewModels.eventDetailsViewModel
     private lateinit var mMap: GoogleMap
-
+    lateinit var messageAdapter: MessageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_event_details)
@@ -50,11 +56,29 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
         }
         guestsButton.setOnClickListener { this.onGuestButtonClick(event) }
         when (event.assigned) {
-            true -> assignToEventButton.visibility = View.INVISIBLE
+            true -> assignToEventButton.visibility = View.GONE
             else -> assignToEventButton.visibility = View.VISIBLE
         }
 
+        sendMessageButton.setOnClickListener { sendMessage() }
+        setMessageList(event.discussion.messages)
         assignToEventButton.setOnClickListener(this::assign)
+    }
+
+    private fun sendMessage() {
+        viewModel.sendMessage(messageInput.text.toString())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess { getEvent() }
+            .subscribe()
+    }
+
+
+    private fun setMessageList(messages: List<Message>) {
+        messageAdapter = MessageAdapter(this, messages)
+        discussionRV.apply {
+            adapter = messageAdapter
+            layoutManager = LinearLayoutManager(this@EventDetailsActivity)
+        }
     }
 
     private fun assign(view: View) {
@@ -93,6 +117,16 @@ class EventDetailsActivity : RxActivity(), OnMapReadyCallback {
         map?.let {
             mMap = it
             getEvent()
+        }
+    }
+
+    override fun onClick(message: Message) {
+        UserDetailsActivity.open(this, message.creator.id)
+    }
+
+    override fun loadPhoto(imageView: ImageView, photoId: String?) {
+        photoId?.let {
+            viewModel.loadGuestPhoto(imageView, photoId)
         }
     }
 

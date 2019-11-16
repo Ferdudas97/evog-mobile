@@ -3,7 +3,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:context=".view.events.list.details.EventDetailsActivity">
+
+    <!--    <android.support.v7.widget.Toolbar-->
+    <!--            android:id="@+id/my_toolbar"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="?attr/actionBarSize"-->
+    <!--            android:background="?attr/colorPrimary"-->
+    <!--            android:elevation="4dp"-->
+    <!--            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+    <!--            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -110,7 +120,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
             <fragment
@@ -125,11 +135,44 @@
 
             <TextView
                     android:id="@+id/descriptionDetailTV"
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:ellipsize="end"
                     android:scrollHorizontally="false"
                     android:text="asddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/discussionRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <EditText
+                        android:id="@+id/messageInput"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine" />
+
+                <Button
+                        android:id="@+id/sendMessageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Send" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

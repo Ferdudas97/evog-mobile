@@ -12,7 +12,7 @@ import org.agh.pracinz.evog.R
 import org.agh.pracinz.evog.di.manual.ViewModels
 import org.agh.pracinz.evog.model.data.Category
 import org.agh.pracinz.evog.model.data.Event
-import org.agh.pracinz.evog.view.common.MyDatePicker
+import org.agh.pracinz.evog.view.common.MyDateTimePicker
 import org.agh.pracinz.evog.view.common.RxActivity
 import org.agh.pracinz.evog.view.onSelectedChange
 import org.agh.pracinz.evog.view.onTextChange
@@ -66,13 +66,13 @@ class CreateEventActivity : RxActivity() {
             minAgeInput.onTextNumberChange { minAllowedAge = it }
             eventNameInput.onTextChange { name = it }
             startTimeInput.setOnClickListener {
-                MyDatePicker(this@CreateEventActivity).createPicker(this.startDate) {
+                MyDateTimePicker(this@CreateEventActivity).createPicker(this.startDate) {
                     this.startDate = it
                     startTimeInput.text = "Start time: ${startDate.toPrintable()}"
                 }
             }
             endTimeInput.setOnClickListener {
-                MyDatePicker(this@CreateEventActivity).createPicker(this.endTime) {
+                MyDateTimePicker(this@CreateEventActivity).createPicker(this.endTime) {
                     this.endTime = it
                     endTimeInput.text = "End time: ${endTime.toPrintable()}"
                 }

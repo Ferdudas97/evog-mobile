@@ -40,7 +40,7 @@ class NotificationViewHolder(
 
     fun bindView(notification: Notification) {
         notification.apply {
-            itemView.senderNameTV.text = "${guest.firstName} ${guest.lastName}"
+            itemView.senderNameTV.text = guest.firstName
             itemView.notificationContentTV.text = content
             itemView.rejectRequestButton.setOnClickListener {
                 listener.onRejectButtonClicked(notification.id, adapterPosition)
@@ -51,7 +51,7 @@ class NotificationViewHolder(
                 itemView.deleteNotificationEvent.visibility = View.VISIBLE
             }
             itemView.deleteNotificationEvent.setOnClickListener {
-                listener.onAcceptButtonClicked(notification.id, adapterPosition)
+                listener.onDeleteButtonClicked(notification.id, adapterPosition)
             }
             itemView.acceptRequestButton.setOnClickListener {
                 listener.onAcceptButtonClicked(notification.id, adapterPosition)

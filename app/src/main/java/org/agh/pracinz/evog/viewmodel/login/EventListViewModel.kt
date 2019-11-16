@@ -41,7 +41,7 @@ data class EventListState(
     var name: String? = null,
     var minAllowedAge: Int? = null,
     var maxAllowedAge: Int? = null,
-    var startTime: LocalDateTime? = LocalDateTime.now(),
+    var startTime: LocalDateTime? = LocalDateTime.now().minusDays(1),
     var endTime: LocalDateTime? = LocalDateTime.now().plusDays(7),
     var localizationRadius: Int = 10,
     var maxNumberOfPeople: Int? = null,

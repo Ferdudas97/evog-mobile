@@ -20,6 +20,8 @@ data class Participant(
     val fileId: String? = null
 )
 
+fun Participant.fullName() = "$firstName $lastName"
+
 data class Event(
     val id: String?,
     val imageName: String,
@@ -28,7 +30,18 @@ data class Event(
     val details: EventDetails,
     val assigned: Boolean = false,
     val organizers: Participant,
-    val guest: Set<Participant>
+    val guest: Set<Participant>,
+    val discussion: Discussion = Discussion()
+)
+
+data class Discussion(
+    val messages: List<Message> = emptyList()
+)
+
+data class Message(
+    val creator: Participant,
+    val text: String,
+    val createdAt: LocalDateTime
 )
 
 data class EventDetails(

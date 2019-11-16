@@ -22,23 +22,22 @@ class AccountFragment : Fragment(), FragmentValidator {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_account, container, false)
         viewModel = ViewModels.singInViewModel
-        view.firstPasswordInput.doAfterTextChanged {
-            view.firstPasswordInput.validatePassword()
-            it?.toString()?.let { pass -> viewModel.password = pass }
-        }
-        view.secondPasswordInput.doAfterTextChanged {
-            view.secondPasswordInput.validatePassword()
-        }
-        view.loginInput.doAfterTextChanged {
-            view.loginInput.validateLogin()
-            it?.toString()?.let { login -> viewModel.login = login }
+        return inflater.inflate(R.layout.fragment_account, container, false).apply {
 
+            firstPasswordInput.doAfterTextChanged {
+                firstPasswordInput.validatePassword()
+                it?.toString()?.let { pass -> viewModel.password = pass }
+            }
+            secondPasswordInput.doAfterTextChanged {
+                secondPasswordInput.validatePassword()
+            }
+            loginInput.doAfterTextChanged {
+                loginInput.validateLogin()
+                it?.toString()?.let { login -> viewModel.login = login }
+            }
         }
-        return view
     }
-
 
     override fun isValid(): Boolean {
         return firstPasswordInput.text.toString() == secondPasswordInput.text.toString()
@@ -52,7 +51,7 @@ class AccountFragment : Fragment(), FragmentValidator {
     }
 
     private fun EditText.validatePassword() {
-        val errorText = viewModel.validatePassoword(this.text.toString()).joinToString("\n")
+        val errorText = viewModel.validatePassoword(text.toString())
         error = errorText
     }
 
