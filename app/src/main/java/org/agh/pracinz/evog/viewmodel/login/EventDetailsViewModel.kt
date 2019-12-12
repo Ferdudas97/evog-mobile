@@ -32,7 +32,7 @@ class EventDetailsViewModel(private val eventRepository: EventRepository) : View
         val msg = Message(
             text = content,
             createdAt = LocalDateTime.now(),
-            creator = LoggedAcountContextHolder.account.user.toParticipant()
+            creator = LoggedAcountContextHolder.account!!.user.toParticipant()
         )
         return eventRepository.sendMessage(msg, eventId = event.id!!)
     }

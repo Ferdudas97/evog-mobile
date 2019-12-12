@@ -50,7 +50,7 @@ class GuestViewHolder(
         guest.apply {
             itemView.guestAge.text = "$age lat"
             itemView.guestName.text = "$firstName $lastName"
-            if (LoggedAcountContextHolder.account.user.id == event.organizers.id) {
+            if (LoggedAcountContextHolder.account!!.user.id == event.organizers.id) {
                 itemView.deleteGuestButton.setOnClickListener {
                     listner.onRemoveClicked(
                         event.id!!,

@@ -1,9 +1,12 @@
 package org.agh.pracinz.evog.model.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.time.LocalDate
 
 
-data class UserCredentials(val login: String, val password: String)
+@Entity
+data class UserCredentials(@PrimaryKey val login: String, val password: String)
 
 enum class Sex{
     MALE,FEMALE
@@ -38,5 +41,5 @@ fun User.toParticipant() =
 
 object LoggedAcountContextHolder {
 
-    lateinit var account: Account
+    var account: Account? = null
 }

@@ -31,7 +31,7 @@ private fun CreateEventState.toEvent() = Event(
     id = null,
     name = name,
     imageName = imageName,
-    organizers = LoggedAcountContextHolder.account.user.toParticipant(),
+    organizers = LoggedAcountContextHolder.account!!.user.toParticipant(),
     guest = setOf(),
     details = EventDetails(
         minAllowedAge,

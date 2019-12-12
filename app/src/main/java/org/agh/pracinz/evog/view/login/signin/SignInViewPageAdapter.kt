@@ -3,16 +3,12 @@ package org.agh.pracinz.evog.view.login.signin
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import org.agh.pracinz.evog.view.login.signin.AccountFragment
-import org.agh.pracinz.evog.view.login.signin.ContactInfoFragment
-import org.agh.pracinz.evog.view.login.signin.PersonalInfoFragment
-import java.lang.RuntimeException
 
 
 class SignInViewPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm){
 
 
-    val NUMBER_OF_PAGES = 3
+    private val NUMBER_OF_PAGES = 3
 
     override fun getItem(position: Int): Fragment {
         return when(position){

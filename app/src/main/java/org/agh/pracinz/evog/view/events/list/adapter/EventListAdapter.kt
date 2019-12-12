@@ -51,7 +51,6 @@ class EventViewHolder(v: View, private val viewModel: EventListViewModel) :
         view.apply {
             eventNameTV.text = event.name
             startTimeTV.text = event.startTime.toPrintable()
-//            endTimeTV.text = event.endTime.toPrintable()
             categoryTV.text = event.category.toString()
             peopleLimitTV.text = event.peopleLimit()
         }

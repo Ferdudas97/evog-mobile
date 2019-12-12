@@ -1,7 +1,10 @@
 package org.agh.pracinz.evog.view
 
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.os.AsyncTask
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +50,24 @@ private fun String.parseToInt() = try {
 } catch (_: Exception) {
     null
 }
+
+
+fun doAsync(block: () -> Unit) {
+    object : AsyncTask<Unit, Unit, Unit>() {
+        override fun doInBackground(vararg params: Unit?) {
+            block()
+        }
+    }.execute()
+}
+
+fun broadcastReceiver(block: (Intent, Context) -> Unit) = object : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        block(intent!!, context!!)
+    }
+}
+
+
+
 
 fun Context.getIcons() = fileList()
 fun Context.getIcon(fileName: String) =

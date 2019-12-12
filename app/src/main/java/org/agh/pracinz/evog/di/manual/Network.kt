@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-const val BASE_URL = "http://192.168.0.103:8080/"
+const val BASE_URL = "http://192.168.43.229:8080/"
 
 val mapper = GsonBuilder().registerTypeAdapter(LocalDate::class.java, LocalDateAdapter())
     .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeAdapter()).create()

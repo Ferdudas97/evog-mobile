@@ -3,6 +3,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+            android:id="@+id/logout"
+            android:title="log out"
+            app:showAsAction="ifRoom"></item>
+
+    <item
             android:id="@+id/action_add"
             android:icon="@drawable/bell"
             android:title="Add"

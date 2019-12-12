@@ -20,7 +20,7 @@ class MyDatePicker(private val context: Context) {
         montOfYeay: Int,
         dayOfMonth: Int
     ) {
-        val pickedDate = LocalDate.of(year, montOfYeay, dayOfMonth)
+        val pickedDate = LocalDate.of(year, montOfYeay + 1, dayOfMonth)
         updateUi(pickedDate)
     }
 
@@ -30,7 +30,7 @@ class MyDatePicker(private val context: Context) {
             context,
             this::onDateSet,
             now.year,
-            now.monthValue,
+            now.monthValue - 1,
             now.dayOfMonth
         )
             .show()

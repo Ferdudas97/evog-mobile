@@ -31,7 +31,7 @@ class MyDateTimePicker(private val context: Context) {
     ) {
 
         val pickedDate = LocalDateTime.of(
-            LocalDate.of(year, montOfYeay, dayOfMonth),
+            LocalDate.of(year, montOfYeay + 1, dayOfMonth),
             localDateTime?.toLocalTime()
         )
         TimePickerDialog(context, onTimeSet(pickedDate), now.hour, now.minute, true).show()
@@ -55,7 +55,7 @@ class MyDateTimePicker(private val context: Context) {
             context,
             onDateSet(localDateTime),
             now.year,
-            now.monthValue,
+            now.monthValue - 1,
             now.dayOfMonth
         )
             .show()
